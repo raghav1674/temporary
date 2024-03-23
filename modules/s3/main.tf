@@ -93,6 +93,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
 
 
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_configuration" {
+  count  = var.lifecycle_rule == null ? 0 : 1
   bucket = aws_s3_bucket.bucket.id
   rule {
     id = "TransitionAllObjects"
