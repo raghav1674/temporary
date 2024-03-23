@@ -13,6 +13,7 @@ variable "versioning_enabled" {
 
 
 variable "lifecycle_rule" {
-  type    = any
-  default = {}
+  type        = any
+  default     = null
+  description = "Lifecycle Rule to be applied for the entire bucket"
 }

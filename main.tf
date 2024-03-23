@@ -8,7 +8,7 @@ module "s3" {
   versioning_enabled = false
 
   lifecycle_rule = {
-    transition = [
+    transitions = [
       {
         days          = 0
         storage_class = "GLACIER_IR"
