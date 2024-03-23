@@ -107,8 +107,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_configuration" {
     dynamic "transition" {
       for_each = try(var.lifecycle_rule.transitions, [])
       content {
-        days          = transition.each.days
-        storage_class = transition.each.storage_class
+        days          = transition.value.days
+        storage_class = transition.value.storage_class
       }
     }
 
@@ -125,8 +125,8 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_configuration" {
         }
       ])
       content {
-        noncurrent_days = noncurrent_version_transition.each.noncurrent_days
-        storage_class   = noncurrent_version_transition.each.storage_class
+        noncurrent_days = noncurrent_version_transition.value.noncurrent_days
+        storage_class   = noncurrent_version_transition.value.storage_class
       }
     }
 
