@@ -13,6 +13,6 @@ variable "versioning_enabled" {
 
 
 variable "lifecycle_rule" {
-  type = any
+  type    = any
   default = {}
 }

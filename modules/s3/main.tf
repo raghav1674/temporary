@@ -84,7 +84,7 @@ resource "aws_s3_bucket_versioning" "versioning" {
 #         }
 #       }
 #     }
-  
+
 
 #   # Must have bucket versioning enabled first
 #   depends_on = [aws_s3_bucket_versioning.versioning]
@@ -95,8 +95,8 @@ resource "aws_s3_bucket_versioning" "versioning" {
 resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_configuration" {
   bucket = aws_s3_bucket.bucket.id
   rule {
-    id     = "TransitionAllObjects"
-    
+    id = "TransitionAllObjects"
+
     status = "Enabled"
 
     # apply to all the objects in the bucket
@@ -104,30 +104,34 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_configuration" {
 
     # for current versions objects
     dynamic "transition" {
-        for_each      = try(lifecycle_rule.transitions,[])
+      for_each = try(var.lifecycle_rule.transitions, [])
+      content {
         days          = transition.each.days
         storage_class = transition.each.storage_class
+      }
     }
 
     # for noncurrent versions objects
     dynamic "noncurrent_version_transition" {
-        for_each      = try(lifecycle_rule.noncurrent_transitions,[
-          {
-             days = 90
-             storage_class = "STANDARD_IA"
-          },
-          {
-             days = 120
-             storage_class = "GLACIER"
-          }
-        ])
-        days          = noncurrent_version_transition.each.days
-        storage_class = noncurrent_version_transition.each.storage_class
+      for_each = try(var.lifecycle_rule.noncurrent_transitions, [
+        {
+          days          = 90
+          storage_class = "STANDARD_IA"
+        },
+        {
+          days          = 120
+          storage_class = "GLACIER"
+        }
+      ])
+      content {
+        noncurrent_days = noncurrent_version_transition.each.noncurrent_days
+        storage_class   = noncurrent_version_transition.each.storage_class
+      }
     }
 
     # for noncurrent version expiration
     noncurrent_version_expiration {
-        noncurrent_days          = try(lifecycle_rule.noncurrent_expiration_days,180)
+      noncurrent_days = try(var.lifecycle_rule.noncurrent_expiration_days, 180)
     }
   }
   depends_on = [aws_s3_bucket_versioning.versioning]
