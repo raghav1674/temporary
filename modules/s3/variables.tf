@@ -13,7 +13,17 @@ variable "versioning_enabled" {
 
 
 variable "lifecycle_rule" {
-  type        = any
+  type = object({
+    transitions = list(object({
+      days          = number
+      storage_class = string
+    }))
+    noncurrent_transitions = list(object({
+      noncurrent_days = number
+      storage_class   = string
+    }))
+    noncurrent_expiration_days = number
+  })
   default     = null
   description = "Lifecycle Rule to be applied for the entire bucket"
 }
