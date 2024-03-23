@@ -22,7 +22,7 @@ variable "lifecycle_rule" {
       noncurrent_days = number
       storage_class   = string
     })),[])
-    noncurrent_expiration_days = optional(number,0)
+    noncurrent_expiration_days = optional(number,180)
   })
   default     = null
   description = "Lifecycle Rule to be applied for the entire bucket"
