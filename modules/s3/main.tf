@@ -116,12 +116,12 @@ resource "aws_s3_bucket_lifecycle_configuration" "lifecycle_configuration" {
     dynamic "noncurrent_version_transition" {
       for_each = try(var.lifecycle_rule.noncurrent_transitions, [
         {
-          days          = 90
-          storage_class = "STANDARD_IA"
+          noncurrent_days = 90
+          storage_class   = "STANDARD_IA"
         },
         {
-          days          = 120
-          storage_class = "GLACIER"
+          noncurrent_days = 120
+          storage_class   = "GLACIER"
         }
       ])
       content {
