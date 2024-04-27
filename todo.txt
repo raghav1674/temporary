@@ -1,0 +1,5 @@
+Download this -> https://github.com/raghav1674/temporary/archive/refs/heads/master.zip
+
+docker pull raggupta/ubuntu-testvm:v1
+docker tag raggupta/ubuntu-testvm:v1 ubuntu-testvm:v1
+docker image rm raggupta/ubuntu-testvm:v1
