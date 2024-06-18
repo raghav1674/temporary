@@ -5,7 +5,7 @@ resource "aws_security_group_rule" "ingress_rules" {
   to_port           = each.value.to_port
   protocol          = each.value.protocol
   cidr_blocks       = [each.value.cidr_block]
-  description       = try(each.value.description, null)
+  description       = each.value.description
   security_group_id = local.security_group_id
 }
 
@@ -16,6 +16,6 @@ resource "aws_security_group_rule" "egress_rules" {
   to_port           = each.value.to_port
   protocol          = each.value.protocol
   cidr_blocks       = [each.value.cidr_block]
-  description       = try(each.value.description, null)
+  description       = each.value.description
   security_group_id = local.security_group_id
 }

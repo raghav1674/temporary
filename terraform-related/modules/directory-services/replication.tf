@@ -1,7 +1,8 @@
 resource "aws_directory_service_region" "this" {
-  for_each     = { for replicated_region in var.replicated_regions : replicated_region.region_name => replicated_region }
-  directory_id = aws_directory_service_directory.this.id
-  region_name  = each.key
+  for_each                             = { for replicated_region in var.replicated_regions : replicated_region.region_name => replicated_region }
+  directory_id                         = aws_directory_service_directory.this.id
+  region_name                          = each.key
+  desired_number_of_domain_controllers = each.value.number_of_domain_controllers
 
   vpc_settings {
     vpc_id     = each.value.vpc_id

@@ -77,9 +77,10 @@ variable "trusts" {
 variable "replicated_regions" {
   description = "A list of regions to replicate the directory to"
   type = list(object({
-    region_name = string
-    vpc_id      = string
-    subnet_ids  = list(string)
+    region_name                          = string
+    vpc_id                               = string
+    subnet_ids                           = list(string)
+    desired_number_of_domain_controllers = optional(number, 2)
   }))
   default = []
 }
@@ -98,14 +99,14 @@ variable "security_group_rules" {
       to_port     = number
       protocol    = string
       cidr_block  = string
-      description = optional(string)
+      description = optional(string, null)
     }))
     egress_rules = list(object({
       from_port   = number
       to_port     = number
       protocol    = string
       cidr_block  = string
-      description = optional(string)
+      description = optional(string, null)
     }))
   })
   default = {
