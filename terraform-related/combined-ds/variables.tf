@@ -1,27 +1,27 @@
-variable "domain_name" {
+variable "directory_domain_name" {
   description = "The name of the directory"
   type        = string
 }
 
-variable "short_name" {
+variable "directory_short_name" {
   description = "The short name of the directory"
   type        = string
   default     = null
 }
 
-variable "password" {
+variable "directory_password" {
   description = "The password for the directory administrator"
   type        = string
   sensitive   = true
 }
 
-variable "edition" {
+variable "directory_edition" {
   description = "The edition of the directory, only applicable when type is set to MicrosoftAD"
   type        = string
   default     = "Enterprise"
 }
 
-variable "type" {
+variable "directory_type" {
   description = "The directory type"
   type        = string
   default     = "MicrosoftAD"
