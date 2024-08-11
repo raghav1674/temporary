@@ -65,9 +65,3 @@ variable "replicated_regions" {
   }))
   default = []
 }
-
-variable "retention_in_days" {
-  description = "The number of days to retain log events"
-  type        = number
-  default     = 30
-}
