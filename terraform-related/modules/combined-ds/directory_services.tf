@@ -17,6 +17,12 @@ resource "aws_directory_service_directory" "primary" {
   }
 
   tags = var.tags
+
+  lifecycle {
+    ignore_changes = [
+      password,
+    ]
+  }
 }
 
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/directory_service_region

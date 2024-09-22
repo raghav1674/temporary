@@ -1,0 +1,7 @@
+{
+    "locals": {
+        "prd": {
+            "directory_service_id": "ds-1234567890abcdef0"
+        }
+    }
+}

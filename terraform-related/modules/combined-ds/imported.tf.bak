@@ -12,3 +12,8 @@ import {
   to = aws_directory_service_region.replicated["ca-central-1"]
   id = "d-9267651497,ca-central-1"
 }
+
+import {
+  to = aws_directory_service_shared_directory.this["<account-id>"]
+  id = "d-1234567890/d-9267633ece"
+}
