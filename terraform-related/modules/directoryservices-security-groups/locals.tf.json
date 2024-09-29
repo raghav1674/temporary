@@ -1,7 +1,11 @@
 {
     "locals": {
         "prd": {
-            "directory_service_id": "ds-1234567890abcdef0"
+            "directory_service_id": "ds-1234567890abcdef0",
+            "directory_service_enabled_regions": [
+                "us-east-1",
+                "us-west-2"
+            ]
         }
     }
 }
