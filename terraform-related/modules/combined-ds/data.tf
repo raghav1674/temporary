@@ -1,4 +1,4 @@
-data "aws_vpc" "us-west-2" {
+data "aws_vpc" "vpc_usw2" {
   provider = aws.usw2
   filter {
     name   = "tag:Name"
@@ -6,7 +6,7 @@ data "aws_vpc" "us-west-2" {
   }
 }
 
-data "aws_vpc" "us-east-1" {
+data "aws_vpc" "vpc_use1" {
   provider = aws.use1
   filter {
     name   = "tag:Name"
@@ -14,7 +14,7 @@ data "aws_vpc" "us-east-1" {
   }
 }
 
-data "aws_vpc" "ca-central-1" {
+data "aws_vpc" "vpc_cac1" {
   provider = aws.cac1
   filter {
     name   = "tag:Name"
@@ -22,7 +22,7 @@ data "aws_vpc" "ca-central-1" {
   }
 }
 
-data "aws_subnets" "us-west-2" {
+data "aws_subnets" "subnets_usw2" {
   provider = aws.usw2
   filter {
     name   = "tag:Name"
@@ -30,7 +30,7 @@ data "aws_subnets" "us-west-2" {
   }
 }
 
-data "aws_subnets" "us-east-1" {
+data "aws_subnets" "subnets_use1" {
   provider = aws.use1
   filter {
     name   = "tag:Name"
@@ -38,7 +38,7 @@ data "aws_subnets" "us-east-1" {
   }
 }
 
-data "aws_subnets" "ca-central-1" {
+data "aws_subnets" "subnets_cac1" {
   provider = aws.cac1
   filter {
     name   = "tag:Name"
