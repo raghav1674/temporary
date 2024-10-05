@@ -13,8 +13,8 @@ resource "aws_directory_service_directory" "primary" {
   desired_number_of_domain_controllers = var.number_of_domain_controllers
 
   vpc_settings {
-    vpc_id     = data.aws_vpc["us-east-1"].id
-    subnet_ids = data.aws_subnets["us-east-1"].ids
+    vpc_id     = data.aws_vpc["us-west-2"].arn
+    subnet_ids = data.aws_subnets["us-west-2"].ids
   }
 
   tags = var.tags
@@ -36,7 +36,7 @@ resource "aws_directory_service_region" "replicated" {
   desired_number_of_domain_controllers = var.number_of_domain_controllers
 
   vpc_settings {
-    vpc_id     = data.aws_vpc[each.key].id
+    vpc_id     = data.aws_vpc[each.key].arn
     subnet_ids = data.aws_subnets[each.key].ids
   }
   tags = var.tags
