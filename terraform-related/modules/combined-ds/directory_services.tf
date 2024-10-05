@@ -1,6 +1,7 @@
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/directory_service_directory.html#microsoft-active-directory-microsoftad
 # primary directory service
 resource "aws_directory_service_directory" "primary" {
+  provider   = aws.use1
   name       = var.directory_domain_name
   short_name = var.directory_short_name
   password   = var.directory_password
@@ -12,8 +13,8 @@ resource "aws_directory_service_directory" "primary" {
   desired_number_of_domain_controllers = var.number_of_domain_controllers
 
   vpc_settings {
-    vpc_id     = var.vpc_id
-    subnet_ids = var.subnet_ids
+    vpc_id     = data.aws_vpc["us-east-1"].id
+    subnet_ids = data.aws_subnets["us-east-1"].ids
   }
 
   tags = var.tags
@@ -28,14 +29,15 @@ resource "aws_directory_service_directory" "primary" {
 # https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/directory_service_region
 # replicated directory services
 resource "aws_directory_service_region" "replicated" {
+  provider     = aws.use1
   for_each     = { for replicated_region in var.replicated_regions : replicated_region.region_name => replicated_region }
   directory_id = aws_directory_service_directory.primary.id
   region_name  = each.key
   desired_number_of_domain_controllers = var.number_of_domain_controllers
 
   vpc_settings {
-    vpc_id     = each.value.vpc_id
-    subnet_ids = each.value.subnet_ids
+    vpc_id     = data.aws_vpc[each.key].id
+    subnet_ids = data.aws_subnets[each.key].ids
   }
   tags = var.tags
 
