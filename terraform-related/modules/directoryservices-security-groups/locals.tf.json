@@ -1,28 +1,19 @@
 {
     "locals": {
         "config": {
-            "prd": {
-                "prefix_list_name": "rfc1918",
-                "directory_service_enabled_regions": [
-                    "us-east-1",
-                    "us-west-2"
-                ],
-                "directory_service_id": "ds-1234567890abcdef0",
-                "security_group_rules": [
-                    {
-                        "ingress": []
-                    },
-                    {
-                        "egress": [
-                            {
-                                "ip_protocol": "-1",
-                                "from_port": 0,
-                                "to_port": 0,
-                                "use_prefix_list": true
-                            }
-                        ]
-                    }
-                ]
+            "prefix_list_name": "rfc1918",
+            "directory_service": {
+                "id": "ds-1234567890abcdef0",
+                "security_group_rules": {
+                    "ingress": [],
+                    "egress": [
+                        {
+                            "ip_protocol": "-1",
+                            "from_port": 0,
+                            "to_port": 0
+                        }
+                    ]
+                }
             }
         }
     }

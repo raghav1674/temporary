@@ -3,80 +3,74 @@
 
 # us-west-2 directory service ingress and egress rules
 
-resource "aws_vpc_security_group_ingress_rule" "usw2_sg" {
+resource "aws_vpc_security_group_ingress_rule" "sg_usw2" {
   provider = aws.usw2
-  for_each = contains(local.directory_service_enabled_regions, "us-west-2") ? local.ds_ingress_rules : null
+  count    = length(local.ds_ingress_rules)
 
-  security_group_id = data.aws_security_group.usw2_sg[0].id
-  prefix_list_id    = try(each.value.use_prefix_list, false) ? data.aws_prefix_list.rfc1918_usw2[0].id : null
-  cidr_ipv4         = try(each.value.cidr_ipv4, null)
-  from_port         = each.value.ip_protocol == -1 ? each.value.from_port : null
-  ip_protocol       = each.value.ip_protocol
-  to_port           = each.value.ip_protocol == -1 ? each.value.to_port : null
+  security_group_id = data.aws_security_group.sg_usw2.id
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.rfc1918_usw2.id
+  from_port         = local.ds_ingress_rules[count.index].ip_protocol == -1 ? local.ds_ingress_rules[count.index].from_port : null
+  ip_protocol       = local.ds_ingress_rules[count.index].ip_protocol
+  to_port           = local.ds_ingress_rules[count.index].ip_protocol == -1 ? local.ds_ingress_rules[count.index].to_port : null
 }
 
-resource "aws_vpc_security_group_egress_rule" "usw2_sg" {
+resource "aws_vpc_security_group_egress_rule" "sg_usw2" {
   provider = aws.usw2
-  for_each = contains(local.directory_service_enabled_regions, "us-west-2") ? local.ds_egress_rules : null
+  count    = length(local.ds_egress_rules)
 
-  security_group_id = data.aws_security_group.usw2_sg[0].id
-  prefix_list_id    = try(each.value.use_prefix_list, false) ? data.aws_prefix_list.rfc1918_usw2[0].id : null
-  cidr_ipv4         = try(each.value.cidr_ipv4, null)
-  from_port         = each.value.ip_protocol == -1 ? each.value.from_port : null
-  ip_protocol       = each.value.ip_protocol
-  to_port           = each.value.ip_protocol == -1 ? each.value.to_port : null
+  security_group_id = data.aws_security_group.sg_usw2.id
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.rfc1918_usw2.id
+  from_port         = local.ds_egress_rules[count.index].ip_protocol == -1 ? local.ds_egress_rules[count.index].from_port : null
+  ip_protocol       = local.ds_egress_rules[count.index].ip_protocol
+  to_port           = local.ds_egress_rules[count.index].ip_protocol == -1 ? local.ds_egress_rules[count.index].to_port : null
 }
 
 
 # us-east-1 directory service ingress and egress rules
 
-resource "aws_vpc_security_group_ingress_rule" "use1_sg" {
+resource "aws_vpc_security_group_ingress_rule" "sg_use1" {
   provider = aws.use1
-  for_each = contains(local.directory_service_enabled_regions, "us-east-1") ? local.ds_ingress_rules : null
+  count    = length(local.ds_ingress_rules)
 
-  security_group_id = data.aws_security_group.use1_sg[0].id
-  prefix_list_id    = try(each.value.use_prefix_list, false) ? data.aws_prefix_list.rfc1918_use1[0].id : null
-  cidr_ipv4         = try(each.value.cidr_ipv4, null)
-  from_port         = each.value.ip_protocol == -1 ? each.value.from_port : null
-  ip_protocol       = each.value.ip_protocol
-  to_port           = each.value.ip_protocol == -1 ? each.value.to_port : null
+  security_group_id = data.aws_security_group.sg_use1.id
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.rfc1918_use1.id
+  from_port         = local.ds_ingress_rules[count.index].ip_protocol == -1 ? local.ds_ingress_rules[count.index].from_port : null
+  ip_protocol       = local.ds_ingress_rules[count.index].ip_protocol
+  to_port           = local.ds_ingress_rules[count.index].ip_protocol == -1 ? local.ds_ingress_rules[count.index].to_port : null
 }
 
-resource "aws_vpc_security_group_egress_rule" "use1_sg" {
+resource "aws_vpc_security_group_egress_rule" "sg_use1" {
   provider = aws.use1
-  for_each = contains(local.directory_service_enabled_regions, "us-east-1") ? local.ds_egress_rules : null
+  count    = length(local.ds_egress_rules)
 
-  security_group_id = data.aws_security_group.use1_sg[0].id
-  prefix_list_id    = try(each.value.use_prefix_list, false) ? data.aws_prefix_list.rfc1918_use1[0].id : null
-  cidr_ipv4         = try(each.value.cidr_ipv4, null)
-  from_port         = each.value.ip_protocol == -1 ? each.value.from_port : null
-  ip_protocol       = each.value.ip_protocol
-  to_port           = each.value.ip_protocol == -1 ? each.value.to_port : null
+  security_group_id = data.aws_security_group.sg_use1.id
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.rfc1918_use1.id
+  from_port         = local.ds_egress_rules[count.index].ip_protocol == -1 ? local.ds_egress_rules[count.index].from_port : null
+  ip_protocol       = local.ds_egress_rules[count.index].ip_protocol
+  to_port           = local.ds_egress_rules[count.index].ip_protocol == -1 ? local.ds_egress_rules[count.index].to_port : null
 }
 
 
 # ca-central-1 directory service ingress and egress rules
 
-resource "aws_vpc_security_group_ingress_rule" "cac1_sg" {
+resource "aws_vpc_security_group_ingress_rule" "sg_cac1" {
   provider = aws.cac1
-  for_each = contains(local.directory_service_enabled_regions, "ca-central-1") ? local.ds_ingress_rules : null
+  count    = length(local.ds_ingress_rules)
 
-  security_group_id = data.aws_security_group.cac1_sg[0].id
-  prefix_list_id    = try(each.value.use_prefix_list, false) ? data.aws_prefix_list.rfc1918_cac1[0].id : null
-  cidr_ipv4         = try(each.value.cidr_ipv4, null)
-  from_port         = each.value.ip_protocol == -1 ? each.value.from_port : null
-  ip_protocol       = each.value.ip_protocol
-  to_port           = each.value.ip_protocol == -1 ? each.value.to_port : null
+  security_group_id = data.aws_security_group.sg_cac1.id
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.rfc1918_cac1.id
+  from_port         = local.ds_ingress_rules[count.index].ip_protocol == -1 ? local.ds_ingress_rules[count.index].from_port : null
+  ip_protocol       = local.ds_ingress_rules[count.index].ip_protocol
+  to_port           = local.ds_ingress_rules[count.index].ip_protocol == -1 ? local.ds_ingress_rules[count.index].to_port : null
 }
 
-resource "aws_vpc_security_group_egress_rule" "cac1_sg" {
+resource "aws_vpc_security_group_egress_rule" "sg_cac1" {
   provider = aws.cac1
-  for_each = contains(local.directory_service_enabled_regions, "ca-central-1") ? local.ds_egress_rules : null
+  count    = length(local.ds_egress_rules)
 
-  security_group_id = data.aws_security_group.cac1_sg[0].id
-  prefix_list_id    = try(each.value.use_prefix_list, false) ? data.aws_prefix_list.rfc1918_cac1[0].id : null
-  cidr_ipv4         = try(each.value.cidr_ipv4, null)
-  from_port         = each.value.ip_protocol == -1 ? each.value.from_port : null
-  ip_protocol       = each.value.ip_protocol
-  to_port           = each.value.ip_protocol == -1 ? each.value.to_port : null
+  security_group_id = data.aws_security_group.sg_cac1.id
+  prefix_list_id    = data.aws_ec2_managed_prefix_list.rfc1918_cac1.id
+  from_port         = local.ds_egress_rules[count.index].ip_protocol == -1 ? local.ds_egress_rules[count.index].from_port : null
+  ip_protocol       = local.ds_egress_rules[count.index].ip_protocol
+  to_port           = local.ds_egress_rules[count.index].ip_protocol == -1 ? local.ds_egress_rules[count.index].to_port : null
 }
