@@ -17,4 +17,4 @@ jobs:
           url: https://801d69da6218.ngrok-free.app
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
-            secret/foo
+            secret/data/foo foo
