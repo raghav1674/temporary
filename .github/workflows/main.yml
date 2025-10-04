@@ -1,0 +1,20 @@
+name: Simple Workflow
+
+on: 
+  workflow_dispatch:
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4 
+
+      - name: Import Secrets
+        id: import-secrets
+        uses: hashicorp/vault-action@v2
+        with:
+          url: https://801d69da6218.ngrok-free.app
+          token: ${{ secrets.VAULT_TOKEN }}
+          secrets: |
+            secret/foo
