@@ -18,3 +18,7 @@ jobs:
           token: ${{ secrets.VAULT_TOKEN }}
           secrets: |
             secret/data/foo foo
+            
+      - name: Step following 'Import Secrets'
+        run: |
+          echo '${{ steps.import-secrets.outputs }}' 
